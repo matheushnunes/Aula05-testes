@@ -1,29 +1,19 @@
-# Nome do seu pipeline
 name: CI
 
-# Define quando o pipeline deve rodar.
-# 'push' é o gatilho mostrado na aula[cite: 82]. Adicionamos 'pull_request'.
 on: [push, pull_request]
 
 jobs:
   build:
-    # Usa uma máquina virtual do Ubuntu, como no exemplo da aula [cite: 85]
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Baixa o código do seu repositório para a máquina virtual
-    - [cite_start]uses: actions/checkout@v4 [cite: 87]
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    # 2. Configura o ambiente .NET na máquina
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    # 3. Restaura as dependências do seu projeto (pacotes de teste, etc.)
-    - name: Restore dependencies
-      run: dotnet restore
-
-    # 4. Executa os testes (o comando principal da sua aula)
-    - name: Run tests
-      [cite_start]run: dotnet test [cite: 88]
+      - name: Run tests
+        run: dotnet test
